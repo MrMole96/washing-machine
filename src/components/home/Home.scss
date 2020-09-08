@@ -1,0 +1,20 @@
+.container {
+  margin: 0 auto;
+  max-width: 1140px;
+}
+.nav {
+  background-color: gainsboro;
+}
+.buttons {
+  height: 100%;
+  &--nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  &__item {
+    margin: 10px;
+    padding: 0.5rem 2rem;
+    font-size: 2rem;
+  }
+}
