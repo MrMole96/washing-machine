@@ -7,14 +7,15 @@ export const SelectWrapper = ({
 }) => {
   return (
     <React.Fragment>
-      <div class="form-group">
-        <label for="exampleSelect" class="">
+      <div className="form-group">
+        <label htmlFor="userSelect">
           {labelName}:
         </label>
         <select
-          name="select"
-          id="exampleSelect"
-          class="form-control"
+          name="userSelect"
+          id="userSelect"
+          className="form-control"
+          value={value}
           onChange={onChange}        
         >
           <option value={null}>---</option>

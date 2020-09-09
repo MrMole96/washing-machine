@@ -7,13 +7,14 @@ const TimePickerWrapper = ({
   input: { onChange, value },
   meta: { error },
 }) => {
-  console.log(error);
+  // console.log(error);
   return (
     <React.Fragment>
       <Label className="mr-2">{labelName}:</Label>
       <DatePicker
         selected={value ? moment(value).toDate() : null}
-        onChange={onChange}
+        onChange={event => {
+         onChange(event? moment.utc(event).format() : null)}}
         showTimeSelect
         showTimeSelectOnly
         timeIntervals={15}

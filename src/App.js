@@ -13,11 +13,11 @@ export default class App extends Component {
   render() {
     return <Home>
       <Switch>
-        <Route path="/reservations">
-          <Reservations />
-        </Route>
         <Route path="/users">
           <Users />
+        </Route>
+        <Route path="/">
+          <Reservations />
         </Route>
       </Switch>
     </Home>

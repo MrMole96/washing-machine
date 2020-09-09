@@ -24,8 +24,8 @@ const validate = (days) => {
     var fieldArrayError = [];
     days[day].forEach((field) => {
       var fieldErrors = {};
-      var start = moment.utc(field.start, "HH:mm");
-      var end = moment.utc(field.end, "HH:mm");
+      var start = moment.utc(field.start);
+      var end = moment.utc(field.end);
 
       //1
       if (field.start === null) {
@@ -37,6 +37,11 @@ const validate = (days) => {
       if (field.user === null) {
         fieldErrors.user = "Can not be empty";
       }
+      if (start.isSame(end)){
+        fieldErrors.start = "Can not be empty";
+        fieldErrors.end = "Can not be empty";
+      }
+
 
       //2
       if (start.isAfter(end)) {
