@@ -39,8 +39,7 @@ const validate = (days, allValues) => {
       if (start.isAfter(end)) {
         fieldErrors.end = 'End time should be after start time'
       }
-      console.log('field.start',field.start)
-      console.log('field.end',field.end)
+
       if (
         moment(field.start)
           .add('150', 'minutes')
