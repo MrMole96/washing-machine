@@ -1,47 +1,26 @@
 import React, { useEffect, useState } from "react";
-import { Table, Container } from "reactstrap";
-import {
-  Card,
-  CardImg,
-  CardText,
-  CardBody,
-  CardTitle,
-  CardSubtitle,
-} from "reactstrap";
-import { Button, Form, FormGroup, Label, Input, FormText } from "reactstrap";
+import { Container } from "reactstrap";
+import { Card, CardBody, CardTitle } from "reactstrap";
+import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 import "./Users.scss";
 import ReactJson from "react-json-view";
-import { addUser, getUsers, updateUser, deleteUser } from "../../actions/user";
+import { addUser, getUsers } from "../../actions/user";
 import { connect } from "react-redux";
 import { reduxForm, Field, reset } from "redux-form";
-import { purgeStoredState } from "redux-persist";
-import { UsersTable } from "./UsersTable";
-
-const validate = (values) => {
-  const errors = {
-    // monday: [{ start: 'must be present' }],
-    //tuesday: { _error: 'error' },
-  };
-  return errors;
-};
+import UsersTable from "./UsersTable";
 
 const afterSubmit = (result, dispatch) => {
   dispatch(reset("users"));
 };
 
 const customInput = (props, { type }) => (
-  <Input {...props.input} type={props.type} />
+  <React.Fragment>
+    <Input {...props.input} type={props.type} />
+    <span>{props.meta.error}</span>
+  </React.Fragment>
 );
 
-const Users = ({
-  handleSubmit,
-  users,
-  addUser,
-  getUsers,
-  updateUser,
-  deleteUser,
-  reset,
-}) => {
+const Users = ({ handleSubmit, users, addUser, getUsers }) => {
   const [items, getItems] = useState(null);
   useEffect(() => {
     getItems(() => getUsers());
@@ -90,11 +69,7 @@ const Users = ({
       </Card>
       <ReactJson src={users} name="userStoreState" />
       {users.length !== 0 ? (
-        <UsersTable
-          users={users}
-          updateHandler={updateUser}
-          deleteHandler={deleteUser}
-        />
+        <UsersTable users={users} />
       ) : (
         <h2 className="text-center m-5">No users</h2>
       )}
@@ -108,8 +83,6 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = {
   addUser,
   getUsers,
-  updateUser,
-  deleteUser,
 };
 
 export default connect(
@@ -118,7 +91,6 @@ export default connect(
 )(
   reduxForm({
     form: "users",
-    validate,
     onSubmitSuccess: afterSubmit,
     enableReinitialize: true,
   })(Users)

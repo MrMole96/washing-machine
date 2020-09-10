@@ -11,7 +11,7 @@ export default (state = defaultState, action) => {
     case t.UPDATE_USER:
       return state.map((x) => {
         if (x.id === action.user.id) {
-          return action.user;
+          return {...x, ...action.user};
         }
         return x;
       });

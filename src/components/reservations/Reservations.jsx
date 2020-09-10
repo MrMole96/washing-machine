@@ -12,8 +12,7 @@ import SingleDayReservations from "./SingleDayReservations";
 import "./Reservations.scss";
 import moment from "moment";
 
-const validate = (days) => {
-
+const validate = (days,allValues) => {
   const errors = {
     // monday: [{ start: 'must be present' }],
     // tuesday: { _error: 'error' },
@@ -54,10 +53,13 @@ const validate = (days) => {
       }
 
       for (let index = 0; index < days[day].length; index++) {
-        if(moment(field.start).isBetween(days[day][index].start, days[day][index].end) || moment(field.end).isBetween(days[day][index].start, days[day][index].end)){
+        if(moment(field.start).isBetween(days[day][index].start, days[day][index].end)){
           errors[day] = { _error: 'Conflict between two reservations' }
         }
-        if(moment(field.start).isBetween(days[day][index].end, moment(days[day][index].end).add("15", "minutes"))){
+        if(moment(field.end).isBetween(days[day][index].start, days[day][index].end)){
+           errors[day] = { _error: 'Conflict between two reservations' }
+        }
+        if(moment(field.start).isBetween(moment(days[day][index].end), moment(days[day][index].end).add("15", "minutes")) || field.start === days[day][index].end){
           errors[day] = { _error: 'Two reservations too close to each other' }
         }
       }

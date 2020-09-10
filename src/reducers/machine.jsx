@@ -1,5 +1,4 @@
 import _reduce from "lodash/reduce";
-
 import * as t from "./../actions/actionTypes";
 import { WEEK_DAYS } from "../common/constants";
 

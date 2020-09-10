@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import { Table, Button } from "reactstrap";
+import React from "react";
+import { Table } from "reactstrap";
 import { UserRow } from "./UserRow";
+import { connect } from "react-redux";
+import {updateUser, deleteUser } from "../../actions/user";
 
-export const UsersTable = ({ users, deleteHandler, updateHandler }) => {
-  const [isEditable, setisEditable] = useState(false);
-
+const UsersTable = ({ users, updateUser , deleteUser}) => {
   return (
     <Table>
       <thead>
@@ -22,11 +22,18 @@ export const UsersTable = ({ users, deleteHandler, updateHandler }) => {
             key={"user" + index}
             user={user}
             index={index}
-            deleteHandler={deleteHandler}
-            updateHandler={updateHandler}
+            deleteHandler={deleteUser}
+            updateHandler={updateUser}
           />
         ))}
       </tbody>
     </Table>
   );
 };
+const mapDispatchToProps = {
+  updateUser,
+  deleteUser,
+};
+
+
+export default connect(null, mapDispatchToProps)(UsersTable);

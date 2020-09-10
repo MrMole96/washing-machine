@@ -4,24 +4,27 @@ import { Label } from "reactstrap";
 import moment from "moment";
 const TimePickerWrapper = ({
   prop: { labelName },
-  input: { onChange, value },
-  meta: { error },
+  input: { onChange, value, onFocus, onBlur },
+  meta: { touched, error },
 }) => {
-  // console.log(error);
   return (
     <React.Fragment>
       <Label className="mr-2">{labelName}:</Label>
       <DatePicker
+        onBlur={onBlur}
+        onFocus={onFocus}
         selected={value ? moment(value).toDate() : null}
-        onChange={event => {
-         onChange(event? moment.utc(event).format() : null)}}
+        onChange={(event) => {
+          onChange(event ? moment.utc(event).format() : null);
+        }}
         showTimeSelect
         showTimeSelectOnly
-        timeIntervals={15}
+        timeIntervals={5}
         dateFormat="h:mm aa"
         timeCaption="Time"
       />
-      <span className="reservations__error">{error}</span>
+
+      {touched && error && <p className="reservations__error">{error}</p>}
     </React.Fragment>
   );
 };

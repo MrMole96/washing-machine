@@ -1,18 +1,9 @@
 import React from "react";
-import { Row, Col, Button, Container } from "reactstrap";
+import { Row, Col, Button, Container, Card } from "reactstrap";
 import { Field } from "redux-form";
 import _capitalize from "lodash/capitalize";
 import TimePickerWrapper from "./TimePickerWrapper";
 import { SelectWrapper } from "./SelectWrapper";
-import moment from "moment";
-
-const normalizeDate = (value) => {
-  var normalized = value;
-  if (moment(value, "HH:mm", true).isValid()) {
-    normalized = moment(value).format("HH:mm");
-  }
-  return normalized;
-};
 
 const SingleDayReservations = ({ fields, selectItems, meta: { error } }) => {
   return [
@@ -25,7 +16,7 @@ const SingleDayReservations = ({ fields, selectItems, meta: { error } }) => {
       </Row>
       <Row key="entry">
         {fields.map((name, index) => (
-          <div key={`${name}-${index}`}>
+          <Card key={`${name}-${index}`}>
             <Row              
               className="reservations__single-entry"
             >
@@ -45,7 +36,6 @@ const SingleDayReservations = ({ fields, selectItems, meta: { error } }) => {
                   prop={{
                     labelName: "End",
                   }}
-                  // normalize={normalizeDate}
                 />
               </Col>
               <Col xs={{ size: 12 }} md={{ size: 6 }}>
@@ -65,12 +55,12 @@ const SingleDayReservations = ({ fields, selectItems, meta: { error } }) => {
                   fields.remove(index);
                 }}
                 color="danger"
-                className="reservations__remove-btn"
+                className="reservations__remove-btn mb-2"
               >
                 Remove
               </Button>
             </Row>
-          </div>
+          </Card>
         ))}
       </Row>
       <Row key="footer">

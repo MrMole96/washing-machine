@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import "./App.css";
 import { Reservations } from "./components";
 import {
-  BrowserRouter as Router,
   Switch,
   Route
 } from "react-router-dom";
