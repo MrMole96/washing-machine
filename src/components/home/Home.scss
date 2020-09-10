@@ -3,16 +3,16 @@
   max-width: 1140px;
 }
 .nav {
-  border-bottom: 1px solid rgba(0,0,0,0.1);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   justify-content: space-around;
   margin-bottom: 2rem;
 }
-.nav .nav-item{
+.nav .nav-item {
   font-size: 1.4rem;
   position: relative;
   &::before {
     display: block;
-    content: "";
+    content: '';
     position: absolute;
     bottom: 0;
     left: 0;

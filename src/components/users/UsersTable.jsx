@@ -1,10 +1,10 @@
-import React from "react";
-import { Table } from "reactstrap";
-import { UserRow } from "./UserRow";
-import { connect } from "react-redux";
-import {updateUser, deleteUser } from "../../actions/user";
+import React from 'react'
+import { Table } from 'reactstrap'
+import { UserRow } from './UserRow'
+import { connect } from 'react-redux'
+import { updateUser, deleteUser } from '../../actions/user'
 
-const UsersTable = ({ users, updateUser , deleteUser}) => {
+const UsersTable = ({ users, updateUser, deleteUser }) => {
   return (
     <Table>
       <thead>
@@ -19,7 +19,7 @@ const UsersTable = ({ users, updateUser , deleteUser}) => {
       <tbody>
         {users.map((user, index) => (
           <UserRow
-            key={"user" + index}
+            key={'user' + index}
             user={user}
             index={index}
             deleteHandler={deleteUser}
@@ -28,12 +28,11 @@ const UsersTable = ({ users, updateUser , deleteUser}) => {
         ))}
       </tbody>
     </Table>
-  );
-};
+  )
+}
 const mapDispatchToProps = {
   updateUser,
   deleteUser,
-};
+}
 
-
-export default connect(null, mapDispatchToProps)(UsersTable);
+export default connect(null, mapDispatchToProps)(UsersTable)

@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react'
 
 export const SelectWrapper = ({
   input: { onChange, value, onFocus, onBlur },
@@ -16,14 +16,11 @@ export const SelectWrapper = ({
           id="userSelect"
           className="form-control"
           value={value}
-          onChange={(event) => {            
-            onChange(event.target.value!=="-- Select user --" ? event : null);
+          onChange={(event) => {
+            onChange(event.target.value !== '-- Select user --' ? event : null)
           }}
         >
-          <option value={null}>
-            {" "}
-            -- Select user --{" "}
-          </option>
+          <option value={null}> -- Select user -- </option>
           {selectItems.map((x) => (
             <option key={x.id} value={x.firstName}>
               {x.firstName}
@@ -33,5 +30,5 @@ export const SelectWrapper = ({
       </div>
       {touched && error && <p className="reservations__error">{error}</p>}
     </React.Fragment>
-  );
-};
+  )
+}

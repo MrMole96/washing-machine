@@ -1,26 +1,26 @@
-import React, { useState } from "react";
-import { Button, Input } from "reactstrap";
+import React, { useState } from 'react'
+import { Button, Input } from 'reactstrap'
 
 export const UserRow = ({ user, index, deleteHandler, updateHandler }) => {
-  const [isEditable, setisEditable] = useState(false);
-  const [row, setRow] = useState({});
+  const [isEditable, setisEditable] = useState(false)
+  const [row, setRow] = useState({})
 
   const updateRow = (target) => {
-    var name = target.name;
-    var value = target.value;
+    var name = target.name
+    var value = target.value
 
-    setRow({ ...row, id: user.id, [name]: value });
-  };
+    setRow({ ...row, id: user.id, [name]: value })
+  }
 
   const updateClickHandler = () => {
-    setisEditable((value) => !value);
+    setisEditable((value) => !value)
 
-    updateHandler(row);
-  };
+    updateHandler(row)
+  }
 
   const deleteClickHandler = () => {
-    deleteHandler(user.id);
-  };
+    deleteHandler(user.id)
+  }
 
   return (
     <tr>
@@ -82,5 +82,5 @@ export const UserRow = ({ user, index, deleteHandler, updateHandler }) => {
         </Button>
       </td>
     </tr>
-  );
-};
+  )
+}

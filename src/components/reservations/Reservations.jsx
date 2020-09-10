@@ -1,76 +1,88 @@
-import React, { useEffect } from "react";
-import { connect } from "react-redux";
-import { reduxForm, FieldArray, Form } from "redux-form";
-import { Button, Container, Row, Col } from "reactstrap";
-import _map from "lodash/map";
-import ReactJson from "react-json-view";
+import React, { useEffect } from 'react'
+import { connect } from 'react-redux'
+import { reduxForm, FieldArray, Form } from 'redux-form'
+import { Button, Container, Row, Col } from 'reactstrap'
+import _map from 'lodash/map'
+import ReactJson from 'react-json-view'
 
-import { WEEK_DAYS } from "../../common/constants";
-import { clearReservations, saveReservations } from "../../actions/machine";
-import { getUsers } from "../../actions/user";
-import SingleDayReservations from "./SingleDayReservations";
-import "./Reservations.scss";
-import moment from "moment";
+import { WEEK_DAYS } from '../../common/constants'
+import { clearReservations, saveReservations } from '../../actions/machine'
+import { getUsers } from '../../actions/user'
+import SingleDayReservations from './SingleDayReservations'
+import './Reservations.scss'
+import moment from 'moment'
 
-const validate = (days,allValues) => {
-  const errors = {
-    // monday: [{ start: 'must be present' }],
-    // tuesday: { _error: 'error' },
-  };
+const validate = (days, allValues) => {
+  const errors = {}
 
-  Object.keys(days).forEach((day) => {
-  
-    var fieldArrayError = [];
-    days[day].forEach((field) => {
-      var fieldErrors = {};
-      var start = moment.utc(field.start);
-      var end = moment.utc(field.end);
+  Object.keys(days).forEach(day => {
+    var fieldArrayError = []
+    days[day].forEach(field => {
+      var fieldErrors = {}
+      var start = moment.utc(field.start)
+      var end = moment.utc(field.end)
 
-      //1
-      if (field.start === null) {
-        fieldErrors.start = "Can not be empty";
+      if (field.start === null || field.start === undefined) {
+        fieldErrors.start = 'Can not be empty'
       }
-      if (field.end === null) {
-        fieldErrors.end = "Can not be empty";
+      if (field.end === null || field.end === undefined) {
+        fieldErrors.end = 'Can not be empty'
       }
       if (field.user === null) {
-        fieldErrors.user = "Can not be empty";
+        fieldErrors.user = 'Can not be empty'
       }
-      if (start.isSame(end)){
-        fieldErrors.start = "Can not be empty";
-        fieldErrors.end = "Can not be empty";
+      if (start.isSame(end)) {
+        fieldErrors.start = 'Can not be empty'
+        fieldErrors.end = 'Can not be empty'
       }
 
-
-      //2
       if (start.isAfter(end)) {
-        fieldErrors.end = "End time should be after start time";
+        fieldErrors.end = 'End time should be after start time'
       }
-
-      //3     
-      if (moment(field.start).add("150", "minutes").isBetween(field.start, field.end)) {
-        fieldErrors.end = "Reservation too long";
+      console.log('field.start',field.start)
+      console.log('field.end',field.end)
+      if (
+        moment(field.start)
+          .add('150', 'minutes')
+          .isBetween(field.start, field.end)
+      ) {
+        fieldErrors.end = 'Reservation too long'
       }
 
       for (let index = 0; index < days[day].length; index++) {
-        if(moment(field.start).isBetween(days[day][index].start, days[day][index].end)){
+        if (
+          moment(field.start).isBetween(
+            days[day][index].start,
+            days[day][index].end
+          )
+        ) {
           errors[day] = { _error: 'Conflict between two reservations' }
         }
-        if(moment(field.end).isBetween(days[day][index].start, days[day][index].end)){
-           errors[day] = { _error: 'Conflict between two reservations' }
+        if (
+          moment(field.end).isBetween(
+            days[day][index].start,
+            days[day][index].end
+          )
+        ) {
+          errors[day] = { _error: 'Conflict between two reservations' }
         }
-        if(moment(field.start).isBetween(moment(days[day][index].end), moment(days[day][index].end).add("15", "minutes")) || field.start === days[day][index].end){
+        if (
+          moment(field.start).isBetween(
+            moment(days[day][index].end),
+            moment(days[day][index].end).add('15', 'minutes')
+          ) ||
+          (field.start === days[day][index].end && field.start !== null && field.start !== undefined)
+        ) {
           errors[day] = { _error: 'Two reservations too close to each other' }
         }
       }
-      fieldArrayError.push(fieldErrors);    
-    });
-    errors[day] = {...errors[day], ...fieldArrayError};
-    
-  });
+      fieldArrayError.push(fieldErrors)
+    })
+    errors[day] = { ...errors[day], ...fieldArrayError }
+  })
 
-  return errors;
-};
+  return errors
+}
 
 const Reservations = ({
   clearReservations,
@@ -78,11 +90,11 @@ const Reservations = ({
   machine,
   users,
   saveReservations,
-  reset
+  reset,
 }) => {
   useEffect(() => {
-    getUsers();
-  }, []);
+    getUsers()
+  }, [])
 
   return (
     <Container className="reservations">
@@ -90,7 +102,7 @@ const Reservations = ({
         <Row>
           <Col xs={8}>
             <h2>Reservations</h2>
-            {_map(WEEK_DAYS, (day) => (
+            {_map(WEEK_DAYS, day => (
               <FieldArray
                 key={`single-${day}`}
                 component={SingleDayReservations}
@@ -117,26 +129,26 @@ const Reservations = ({
         </Row>
       </Form>
     </Container>
-  );
-};
-const mapStateToProps = (state) => ({
+  )
+}
+const mapStateToProps = state => ({
   machine: state.machine,
   users: state.users,
   initialValues: state.machine,
-});
+})
 
 const mapDispatchToProps = {
   clearReservations,
   saveReservations,
-};
+}
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(
   reduxForm({
-    form: "reservations",
+    form: 'reservations',
     validate,
     enableReinitialize: true,
   })(Reservations)
-);
+)

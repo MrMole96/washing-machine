@@ -1,7 +1,7 @@
-import React from "react";
-import "./Home.scss";
-import { Container } from "reactstrap";
-import { Nav, NavItem, NavLink } from "reactstrap";
+import React from 'react'
+import './Home.scss'
+import { Container } from 'reactstrap'
+import { Nav, NavItem, NavLink } from 'reactstrap'
 export const Home = (props) => {
   return (
     <Container>
@@ -15,5 +15,5 @@ export const Home = (props) => {
       </Nav>
       {props.children}
     </Container>
-  );
-};
+  )
+}

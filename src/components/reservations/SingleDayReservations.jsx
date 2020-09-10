@@ -1,9 +1,9 @@
-import React from "react";
-import { Row, Col, Button, Container, Card } from "reactstrap";
-import { Field } from "redux-form";
-import _capitalize from "lodash/capitalize";
-import TimePickerWrapper from "./TimePickerWrapper";
-import { SelectWrapper } from "./SelectWrapper";
+import React from 'react'
+import { Row, Col, Button, Container, Card } from 'reactstrap'
+import { Field } from 'redux-form'
+import _capitalize from 'lodash/capitalize'
+import TimePickerWrapper from './TimePickerWrapper'
+import { SelectWrapper } from './SelectWrapper'
 
 const SingleDayReservations = ({ fields, selectItems, meta: { error } }) => {
   return [
@@ -17,15 +17,13 @@ const SingleDayReservations = ({ fields, selectItems, meta: { error } }) => {
       <Row key="entry">
         {fields.map((name, index) => (
           <Card key={`${name}-${index}`}>
-            <Row              
-              className="reservations__single-entry"
-            >
+            <Row className="reservations__single-entry">
               <Col xs={{ size: 12 }} md={{ size: 6 }}>
                 <Field
                   name={`${name}.start`}
                   component={TimePickerWrapper}
                   prop={{
-                    labelName: "Start",
+                    labelName: 'Start',
                   }}
                 />
               </Col>
@@ -34,7 +32,7 @@ const SingleDayReservations = ({ fields, selectItems, meta: { error } }) => {
                   name={`${name}.end`}
                   component={TimePickerWrapper}
                   prop={{
-                    labelName: "End",
+                    labelName: 'End',
                   }}
                 />
               </Col>
@@ -43,7 +41,7 @@ const SingleDayReservations = ({ fields, selectItems, meta: { error } }) => {
                   name={`${name}.user`}
                   component={SelectWrapper}
                   prop={{
-                    labelName: "User",
+                    labelName: 'User',
                     selectItems: selectItems,
                   }}
                 />
@@ -52,7 +50,7 @@ const SingleDayReservations = ({ fields, selectItems, meta: { error } }) => {
             <Row className="justify-content-center">
               <Button
                 onClick={() => {
-                  fields.remove(index);
+                  fields.remove(index)
                 }}
                 color="danger"
                 className="reservations__remove-btn mb-2"
@@ -67,7 +65,7 @@ const SingleDayReservations = ({ fields, selectItems, meta: { error } }) => {
         <Col xs={{ size: 3, offset: 9 }}>
           <Button
             onClick={() => {
-              fields.push({ start: null, end: null, user: null });
+              fields.push({ start: null, end: null, user: null })
             }}
             color="warning"
             className="reservations__clear-btn"
@@ -78,7 +76,7 @@ const SingleDayReservations = ({ fields, selectItems, meta: { error } }) => {
       </Row>
       <hr />
     </Container>,
-  ];
-};
+  ]
+}
 
-export default SingleDayReservations;
+export default SingleDayReservations

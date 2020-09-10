@@ -1,30 +1,30 @@
-import React, { useEffect, useState } from "react";
-import { Container } from "reactstrap";
-import { Card, CardBody, CardTitle } from "reactstrap";
-import { Button, Form, FormGroup, Label, Input } from "reactstrap";
-import "./Users.scss";
-import ReactJson from "react-json-view";
-import { addUser, getUsers } from "../../actions/user";
-import { connect } from "react-redux";
-import { reduxForm, Field, reset } from "redux-form";
-import UsersTable from "./UsersTable";
+import React, { useEffect, useState } from 'react'
+import { Container } from 'reactstrap'
+import { Card, CardBody, CardTitle } from 'reactstrap'
+import { Button, Form, FormGroup, Label, Input } from 'reactstrap'
+import './Users.scss'
+import ReactJson from 'react-json-view'
+import { addUser, getUsers } from '../../actions/user'
+import { connect } from 'react-redux'
+import { reduxForm, Field, reset } from 'redux-form'
+import UsersTable from './UsersTable'
 
 const afterSubmit = (result, dispatch) => {
-  dispatch(reset("users"));
-};
+  dispatch(reset('users'))
+}
 
 const customInput = (props, { type }) => (
   <React.Fragment>
     <Input {...props.input} type={props.type} />
     <span>{props.meta.error}</span>
   </React.Fragment>
-);
+)
 
 const Users = ({ handleSubmit, users, addUser, getUsers }) => {
-  const [items, getItems] = useState(null);
+  const [items, getItems] = useState(null)
   useEffect(() => {
-    getItems(() => getUsers());
-  }, []);
+    getItems(() => getUsers())
+  }, [getUsers])
 
   return (
     <Container>
@@ -74,24 +74,24 @@ const Users = ({ handleSubmit, users, addUser, getUsers }) => {
         <h2 className="text-center m-5">No users</h2>
       )}
     </Container>
-  );
-};
+  )
+}
 const mapStateToProps = (state) => ({
   users: state.users,
-});
+})
 
 const mapDispatchToProps = {
   addUser,
   getUsers,
-};
+}
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(
   reduxForm({
-    form: "users",
+    form: 'users',
     onSubmitSuccess: afterSubmit,
     enableReinitialize: true,
   })(Users)
-);
+)

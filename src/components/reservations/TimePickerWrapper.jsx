@@ -1,7 +1,7 @@
-import React from "react";
-import DatePicker from "react-datepicker";
-import { Label } from "reactstrap";
-import moment from "moment";
+import React from 'react'
+import DatePicker from 'react-datepicker'
+import { Label } from 'reactstrap'
+import moment from 'moment'
 const TimePickerWrapper = ({
   prop: { labelName },
   input: { onChange, value, onFocus, onBlur },
@@ -15,7 +15,7 @@ const TimePickerWrapper = ({
         onFocus={onFocus}
         selected={value ? moment(value).toDate() : null}
         onChange={(event) => {
-          onChange(event ? moment.utc(event).format() : null);
+          onChange(event ? moment.utc(event).format() : null)
         }}
         showTimeSelect
         showTimeSelectOnly
@@ -26,6 +26,6 @@ const TimePickerWrapper = ({
 
       {touched && error && <p className="reservations__error">{error}</p>}
     </React.Fragment>
-  );
-};
-export default TimePickerWrapper;
+  )
+}
+export default TimePickerWrapper
