@@ -3,7 +3,7 @@ import React from 'react'
 export const SelectWrapper = ({
   input: { onChange, value, onFocus, onBlur },
   prop: { selectItems, labelName },
-  meta: { touched, error },
+  meta: { visited, touched, error },
 }) => {
   return (
     <React.Fragment>
@@ -28,7 +28,7 @@ export const SelectWrapper = ({
           ))}
         </select>
       </div>
-      {touched && error && <p className="reservations__error">{error}</p>}
+      {(visited || touched)  && error && <p className="reservations__error">{error}</p>}
     </React.Fragment>
   )
 }

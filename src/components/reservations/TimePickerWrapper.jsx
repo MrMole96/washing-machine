@@ -5,7 +5,7 @@ import moment from 'moment'
 const TimePickerWrapper = ({
   prop: { labelName },
   input: { onChange, value, onFocus, onBlur },
-  meta: { touched, error },
+  meta: { visited, touched, error },
 }) => {
   return (
     <React.Fragment>
@@ -24,7 +24,7 @@ const TimePickerWrapper = ({
         timeCaption="Time"
       />
 
-      {touched && error && <p className="reservations__error">{error}</p>}
+      {(visited || touched) && error && <p className="reservations__error">{error}</p>}
     </React.Fragment>
   )
 }
